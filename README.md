@@ -1,9 +1,15 @@
 #include <stdio.h>
+
 #include <stdlib.h>
+
 #include <allegro5/allegro.h>
+
 #include <allegro5/allegro_font.h>
+
 #include <allegro5/allegro_primitives.h>
+
 #include <allegro5/allegro_ttf.h>
+
 #include <allegro5/allegro_native_dialog.h>
 
 void fill(int t[4][4]) //tworzenie tablicy
