@@ -10,7 +10,7 @@
 
 #include <allegro5/allegro_ttf.h>
 
-#include <allegro5/allegro_native_dialog.h>
+#include <allegro5/allegro_native_dialog.h> //dodajemy wszystkie potrzebne biblioteki do korzystania z allegro
 
 void fill(int t[4][4]) //tworzenie tablicy
 {
@@ -38,7 +38,7 @@ void print(int t[4][4])  //wypisz tablice
     }printf("\n");
 }
 
-void random_2(int t[4][4])
+void random_2(int t[4][4]) //losuje 2 wspolrzedne i wstawia w nie '2'
 {
     srand(time(0));
     int r1 = 0;
@@ -54,7 +54,7 @@ void random_2(int t[4][4])
     t[r3][r4] = 2;
 
 
-    while (r1 == r3 && r2 == r4) //wczesniej wylosowaly sie te same wspolrzedne
+    while (r1 == r3 && r2 == r4) //wczesniej wylosowaly sie te same wspolrzedne wiec losujemy kolejne dopoki nie beda rozne
     {
         t[r3][r4] = 0;
         r3 = rand() % 4;
@@ -77,21 +77,19 @@ int main()
     random_2(t);
     print(t);
 
-    
-    /* Zmienna do odebrania wskaźnika ekranu */
-    if (!al_init())
+    if (!al_init()) //inicjalizujemy biblioteke allegro
     {
         fprintf(stderr, "Failed to initialize allegro!\n");
         return -1;
     }
     
-    al_init_font_addon();
-    al_init_ttf_addon();
-    ALLEGRO_DISPLAY* display = NULL;
-    ALLEGRO_FONT* fontWYNIK = al_create_builtin_font();
-    ALLEGRO_FONT* fontWART_WYNIK = al_create_builtin_font();
+    al_init_font_addon(); //inicjalizujemy czcionki 
+    al_init_ttf_addon(); //inicjalizujemy czcionki true type 
+    ALLEGRO_DISPLAY* display = NULL; //wskaznik do okna
+    ALLEGRO_FONT* fontWYNIK = al_create_builtin_font(); //wskaznik do czcionki 'WYNIK'
+    ALLEGRO_FONT* fontWART_WYNIK = al_create_builtin_font();  //wskaznik do czcionki 'WARTOSC WYNIKU'
 
-    ALLEGRO_FONT* F1 = al_create_builtin_font();
+    ALLEGRO_FONT* F1 = al_create_builtin_font(); //wskaznik do czcionki pierwszego elementu tablicy
     ALLEGRO_FONT* F2 = al_create_builtin_font();
     ALLEGRO_FONT* F3 = al_create_builtin_font();
     ALLEGRO_FONT* F4 = al_create_builtin_font();
@@ -107,28 +105,28 @@ int main()
     ALLEGRO_FONT* F14 = al_create_builtin_font();
     ALLEGRO_FONT* F15 = al_create_builtin_font();
     ALLEGRO_FONT* F16 = al_create_builtin_font();
-    /* Inicjalizacja biblioteki */
+ 
    
     
-    if (!al_init_primitives_addon()) 
+    if (!al_init_primitives_addon()) //inicjalizujemy rysowanie ksztaltow
     {
         fprintf(stderr, "Couldn't initialize primitives addon!\n");
         return -1;
     }
 
-    /* Tworzymy okno, odbieramy wskaźnik, sprawdzamy zwrot */
-    display = al_create_display(640, 480);
+   
+    display = al_create_display(640, 480); //tworzymy okno
     if (!display)
     {
         fprintf(stderr, "Failed to create display!\n");
         return -1;
     }
     
-    /* Czyścimy ekran kolorem a następnie wyświetlamy zmiany */
+   
    //al_clear_to_color(al_map_rgb(20, 100, 150));
    // al_flip_display();
 
-    al_draw_line(3, 0, 3, 203, al_map_rgb(255, 255, 255), 3);
+    al_draw_line(3, 0, 3, 203, al_map_rgb(255, 255, 255), 3); //rysujemy ramke
     al_draw_line(53, 0, 53, 203, al_map_rgb(255, 255, 255), 3);
     al_draw_line(103, 0, 103, 203, al_map_rgb(255, 255, 255), 3);
     al_draw_line(153, 0, 153, 203, al_map_rgb(255, 255, 255), 3);
@@ -143,10 +141,10 @@ int main()
     al_draw_line(3, 153, 203, 153, al_map_rgb(255, 255, 255), 3);
     al_draw_line(3, 203, 203, 203, al_map_rgb(255, 255, 255), 3);
     
-    al_draw_text(fontWYNIK,al_map_rgb(255,255,255),250,30,0,"WYNIK:");
+    al_draw_text(fontWYNIK,al_map_rgb(255,255,255),250,30,0,"WYNIK:"); //wyswietla napis 'WYNIK'
     
  
-            al_draw_textf(F1, al_map_rgb(255, 255, 255), 25, 25, 0, "%d",t[0][0]);
+            al_draw_textf(F1, al_map_rgb(255, 255, 255), 25, 25, 0, "%d",t[0][0]); //wyswietla wartosci tablicy 
             al_draw_textf(F2, al_map_rgb(255, 255, 255), 75, 25, 0, "%d", t[0][1]);
             al_draw_textf(F3, al_map_rgb(255, 255, 255), 125, 25, 0, "%d", t[0][2]);
             al_draw_textf(F4, al_map_rgb(255, 255, 255), 175, 25, 0, "%d", t[0][3]);
@@ -166,16 +164,15 @@ int main()
             al_draw_textf(F15, al_map_rgb(255, 255, 255), 125, 175, 0, "%d", t[3][2]);
             al_draw_textf(F16, al_map_rgb(255, 255, 255), 175, 175, 0, "%d", t[3][3]);
       
-    al_flip_display();
+    al_flip_display(); //wyswietla to wszystko na ekran
 
 
 
 
 
 
-    /* Czekamy chwile, niszczymy ekran i kończymy program */
-    al_rest(10000);
-    al_destroy_display(display);
+    al_rest(10000); //ustawia czas wyswietlania okna
+    al_destroy_display(display); //usuwa okno
 
 
    
